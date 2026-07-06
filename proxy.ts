@@ -1,9 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PORTAL_PREFIX = "/portal";
 const ADMIN_PREFIX = "/admin";
-const GATED_MARKETING_PATHS = [
+const GATED_PREFIXES = [
   "/activities",
   "/accommodations",
   "/gallery",
@@ -41,8 +40,9 @@ export async function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   const needsAdmin = pathname.startsWith(ADMIN_PREFIX);
-  const needsApprovedContent =
-    pathname.startsWith(PORTAL_PREFIX) || GATED_MARKETING_PATHS.includes(pathname);
+  const needsApprovedContent = GATED_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(prefix + "/")
+  );
 
   if (!needsApprovedContent && !needsAdmin && pathname !== "/waiver") {
     return response;

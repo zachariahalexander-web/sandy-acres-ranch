@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import PageHero from "@/components/page-hero";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Gallery | Sandy Acres Ranch",
@@ -14,8 +15,26 @@ const PHOTOS = [
 ];
 
 const COMING_SOON_COUNT = 2;
+const SIGNED_URL_TTL_SECONDS = 60 * 10;
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const supabase = await createClient();
+
+  const { data: files } = await supabase.storage
+    .from("gallery-private")
+    .list("", { sortBy: { column: "name", order: "asc" } });
+
+  const imageFiles = (files ?? []).filter((f) => f.id !== null);
+
+  const interiorPhotos = await Promise.all(
+    imageFiles.map(async (file) => {
+      const { data } = await supabase.storage
+        .from("gallery-private")
+        .createSignedUrl(file.name, SIGNED_URL_TTL_SECONDS);
+      return { name: file.name, url: data?.signedUrl };
+    })
+  );
+
   return (
     <div>
       <PageHero
@@ -50,10 +69,31 @@ export default function GalleryPage() {
           ))}
         </div>
 
-        <p className="mt-10 text-center text-ink/70">
-          Approved guests can browse a larger, private gallery of the interior
-          of both houses through the guest portal.
-        </p>
+        <div className="mt-16">
+          <h2 className="font-head text-2xl font-bold text-wood-dark">
+            Interior Photos
+          </h2>
+          {interiorPhotos.length === 0 ? (
+            <p className="mt-4 text-sm text-ink/60">
+              No interior photos have been uploaded yet.
+            </p>
+          ) : (
+            <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+              {interiorPhotos.map(
+                (file) =>
+                  file.url && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      key={file.name}
+                      src={file.url}
+                      alt={file.name}
+                      className="aspect-square w-full rounded-lg object-cover"
+                    />
+                  )
+              )}
+            </div>
+          )}
+        </div>
       </section>
     </div>
   );

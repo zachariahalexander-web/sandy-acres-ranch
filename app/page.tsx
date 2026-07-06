@@ -17,7 +17,7 @@ export default function Home() {
           href="/sign-in"
           className="rounded-full bg-rust px-6 py-3 text-sm font-bold uppercase tracking-wide text-cream transition-colors hover:bg-leather"
         >
-          Guest Portal
+          Sign In
         </Link>
         <Link
           href="/sign-up"

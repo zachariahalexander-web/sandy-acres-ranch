@@ -57,7 +57,7 @@ export default function SiteFooter({ profile }: { profile: Profile | null }) {
             <>
               <h3 className="font-head text-base font-bold text-cream">Guests</h3>
               <Link href="/sign-in" className="text-sand-dark hover:text-cream">
-                Guest Portal
+                Sign In
               </Link>
               <Link href="/sign-up" className="text-sand-dark hover:text-cream">
                 Create a Profile

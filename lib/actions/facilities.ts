@@ -29,7 +29,8 @@ export async function bookFacilitySlot(
     return { error: "Could not book that slot. Please try again." };
   }
 
-  revalidatePath(`/portal/facilities/${facilityId}`);
+  revalidatePath(`/activities/${facilityId}`);
+  revalidatePath("/activities");
   return {};
 }
 
@@ -41,5 +42,5 @@ export async function cancelFacilityBooking(bookingId: string) {
     .eq("id", bookingId);
 
   if (error) throw new Error(error.message);
-  revalidatePath("/portal/facilities");
+  revalidatePath("/activities");
 }

@@ -19,7 +19,13 @@ const STATUS_STYLES: Record<Guest["status"], string> = {
   revoked: "bg-ink/10 text-ink/60",
 };
 
-export default function GuestRow({ guest }: { guest: Guest }) {
+export default function GuestRow({
+  guest,
+  waiverSignedAt,
+}: {
+  guest: Guest;
+  waiverSignedAt?: string | null;
+}) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -29,6 +35,15 @@ export default function GuestRow({ guest }: { guest: Guest }) {
         <p className="font-semibold text-wood-dark">{guest.full_name}</p>
         <p className="text-sm text-ink/70">{guest.email}</p>
         {guest.phone && <p className="text-sm text-ink/60">{guest.phone}</p>}
+        <p className="mt-1 text-xs font-semibold uppercase tracking-wide">
+          {waiverSignedAt ? (
+            <span className="text-sage-dark">
+              Waiver signed {new Date(waiverSignedAt).toLocaleDateString()}
+            </span>
+          ) : (
+            <span className="text-rust">Waiver not signed</span>
+          )}
+        </p>
       </div>
 
       <div className="flex items-center gap-3">

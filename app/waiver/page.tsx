@@ -17,7 +17,7 @@ export default async function WaiverPage() {
 
   const existingAcceptance = await getActiveWaiverAcceptance();
   if (existingAcceptance) {
-    redirect("/portal");
+    redirect("/accommodations");
   }
 
   const supabase = await createClient();

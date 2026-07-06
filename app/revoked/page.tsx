@@ -9,11 +9,11 @@ export default function RevokedPage() {
   return (
     <div className="mx-auto max-w-lg px-6 py-24 text-center">
       <h1 className="font-head text-3xl font-bold text-wood-dark">
-        Portal Access Has Been Revoked
+        Access Has Been Revoked
       </h1>
       <p className="mt-4 text-ink/80">
-        Your booking access to the guest portal is no longer active. If you
-        believe this is a mistake, please contact the ranch directly.
+        Your booking access is no longer active. If you believe this is a
+        mistake, please contact the ranch directly.
       </p>
       <form action={signOut} className="mt-8">
         <button

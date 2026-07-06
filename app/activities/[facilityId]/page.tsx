@@ -62,14 +62,14 @@ export default async function FacilityPage({
             <span className="text-sm text-ink/30">&larr; Previous Day</span>
           ) : (
             <Link
-              href={`/portal/facilities/${facilityId}?date=${prevDate}`}
+              href={`/activities/${facilityId}?date=${prevDate}`}
               className="text-sm font-semibold text-wood-dark hover:text-rust"
             >
               &larr; Previous Day
             </Link>
           )}
           <Link
-            href={`/portal/facilities/${facilityId}?date=${nextDate}`}
+            href={`/activities/${facilityId}?date=${nextDate}`}
             className="text-sm font-semibold text-wood-dark hover:text-rust"
           >
             Next Day &rarr;

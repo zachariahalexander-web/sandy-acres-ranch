@@ -26,6 +26,23 @@ export default async function AdminPage() {
     .eq("role", "admin")
     .order("full_name");
 
+  const { data: activeVersion } = await supabase
+    .from("waiver_versions")
+    .select("id")
+    .eq("is_active", true)
+    .single();
+
+  const { data: acceptances } = activeVersion
+    ? await supabase
+        .from("waiver_acceptances")
+        .select("profile_id, accepted_at")
+        .eq("waiver_version_id", activeVersion.id)
+    : { data: [] };
+
+  const waiverSignedAtByProfile = new Map(
+    (acceptances ?? []).map((a) => [a.profile_id, a.accepted_at])
+  );
+
   const pending = (guests ?? []).filter((g) => g.status === "pending");
   const approved = (guests ?? []).filter((g) => g.status === "approved");
   const revoked = (guests ?? []).filter((g) => g.status === "revoked");
@@ -61,12 +78,20 @@ export default async function AdminPage() {
         <h1 className="font-head text-3xl font-bold text-wood-dark">
           Admin Dashboard
         </h1>
-        <Link
-          href="/admin/weekends"
-          className="rounded-full border-2 border-wood-dark px-4 py-2 text-sm font-semibold text-wood-dark hover:bg-wood-dark hover:text-cream"
-        >
-          Manage Weekends
-        </Link>
+        <div className="flex gap-3">
+          <Link
+            href="/admin/reservations"
+            className="rounded-full border-2 border-wood-dark px-4 py-2 text-sm font-semibold text-wood-dark hover:bg-wood-dark hover:text-cream"
+          >
+            All Reservations
+          </Link>
+          <Link
+            href="/admin/weekends"
+            className="rounded-full border-2 border-wood-dark px-4 py-2 text-sm font-semibold text-wood-dark hover:bg-wood-dark hover:text-cream"
+          >
+            Manage Weekends
+          </Link>
+        </div>
       </div>
       <p className="mt-2 text-ink/80">
         Approve new guest profiles or revoke access for existing ones.
@@ -97,7 +122,11 @@ export default async function AdminPage() {
             <p className="text-sm text-ink/60">No pending guests.</p>
           )}
           {pending.map((guest) => (
-            <GuestRow key={guest.id} guest={guest} />
+            <GuestRow
+              key={guest.id}
+              guest={guest}
+              waiverSignedAt={waiverSignedAtByProfile.get(guest.id) ?? null}
+            />
           ))}
         </div>
       </section>
@@ -111,7 +140,11 @@ export default async function AdminPage() {
             <p className="text-sm text-ink/60">No approved guests yet.</p>
           )}
           {approved.map((guest) => (
-            <GuestRow key={guest.id} guest={guest} />
+            <GuestRow
+              key={guest.id}
+              guest={guest}
+              waiverSignedAt={waiverSignedAtByProfile.get(guest.id) ?? null}
+            />
           ))}
         </div>
       </section>
@@ -125,7 +158,11 @@ export default async function AdminPage() {
             <p className="text-sm text-ink/60">No revoked guests.</p>
           )}
           {revoked.map((guest) => (
-            <GuestRow key={guest.id} guest={guest} />
+            <GuestRow
+              key={guest.id}
+              guest={guest}
+              waiverSignedAt={waiverSignedAtByProfile.get(guest.id) ?? null}
+            />
           ))}
         </div>
       </section>

@@ -33,7 +33,7 @@ export async function postMenuIdea(
     return { error: "Could not post your idea. Please try again." };
   }
 
-  revalidatePath(`/portal/menu-board/${weekendId}`);
+  revalidatePath(`/activities/menu-board/${weekendId}`);
   return undefined;
 }
 
@@ -45,5 +45,5 @@ export async function deleteMenuIdea(ideaId: string, weekendId: string) {
     .eq("id", ideaId);
 
   if (error) throw new Error(error.message);
-  revalidatePath(`/portal/menu-board/${weekendId}`);
+  revalidatePath(`/activities/menu-board/${weekendId}`);
 }

@@ -3,14 +3,14 @@ import Link from "next/link";
 import SignInForm from "@/components/sign-in-form";
 
 export const metadata: Metadata = {
-  title: "Guest Portal Sign In | Sandy Acres Ranch",
+  title: "Sign In | Sandy Acres Ranch",
 };
 
 export default function SignInPage() {
   return (
     <div className="mx-auto max-w-lg px-6 py-16">
       <h1 className="font-head text-3xl font-bold text-wood-dark">
-        Guest Portal
+        Sign In
       </h1>
       <p className="mt-2 text-ink/80">
         Sign in to book rooms, courts, the gym, and the yoga studio.

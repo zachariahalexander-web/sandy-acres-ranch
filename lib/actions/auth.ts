@@ -80,7 +80,7 @@ export async function signIn(
     return { error: "Incorrect email or password." };
   }
 
-  redirect("/portal");
+  redirect("/accommodations");
 }
 
 export async function signOut() {
@@ -141,5 +141,5 @@ export async function acceptWaiver(
     return { error: "Could not record your acceptance. Please try again." };
   }
 
-  redirect("/portal");
+  redirect("/accommodations");
 }

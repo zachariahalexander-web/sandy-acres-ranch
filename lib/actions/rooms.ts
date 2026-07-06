@@ -43,7 +43,8 @@ export async function reserveRoom(
     return { error: "Could not create the reservation. Please try again." };
   }
 
-  revalidatePath("/portal/rooms");
+  revalidatePath("/accommodations");
+  revalidatePath(`/accommodations/${bedroomId}`);
   return undefined;
 }
 
@@ -55,5 +56,5 @@ export async function cancelRoomReservation(reservationId: string) {
     .eq("id", reservationId);
 
   if (error) throw new Error(error.message);
-  revalidatePath("/portal/rooms");
+  revalidatePath("/accommodations");
 }

@@ -63,9 +63,10 @@ export default function ContactPage() {
           </h2>
           <p className="mt-2 text-ink/80">
             Room reservations, court and studio bookings, and the weekend
-            menu board all live in the guest portal. Sign in or create a
-            profile there &mdash; new accounts are reviewed by an admin
-            before booking access is turned on.
+            menu board are all available right on the Activities and
+            Accommodations pages once you sign in. Sign in or create a
+            profile &mdash; new accounts are reviewed by an admin before
+            booking access is turned on.
           </p>
         </div>
       </section>

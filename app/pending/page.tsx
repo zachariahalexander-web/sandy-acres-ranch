@@ -15,7 +15,7 @@ export default function PendingPage() {
         Thanks for signing up and reviewing the waiver. An admin still needs
         to personally approve your account before you can book rooms,
         courts, the gym, or the yoga studio. You&rsquo;ll be able to sign in
-        and use the portal as soon as that happens.
+        and make reservations as soon as that happens.
       </p>
       <form action={signOut} className="mt-8">
         <button

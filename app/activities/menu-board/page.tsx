@@ -33,7 +33,7 @@ export default async function MenuBoardPage() {
         {(weekends ?? []).map((w) => (
           <Link
             key={w.id}
-            href={`/portal/menu-board/${w.id}`}
+            href={`/activities/menu-board/${w.id}`}
             className="rounded-lg border-2 border-wood/20 bg-white p-4 hover:border-rust"
           >
             <p className="font-semibold text-wood-dark">{w.label}</p>

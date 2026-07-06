@@ -69,22 +69,14 @@ export default function SiteHeader({ profile }: { profile: Profile | null }) {
             </Link>
           )}
           {profile ? (
-            <>
-              <Link
-                href="/portal"
-                className="ml-2 rounded-full bg-wood-dark px-4 py-2 text-sm font-semibold text-cream transition-colors hover:bg-rust"
+            <form action={signOut}>
+              <button
+                type="submit"
+                className="ml-2 rounded-full border-2 border-wood-dark px-4 py-2 text-sm font-semibold text-wood-dark hover:bg-wood-dark hover:text-cream"
               >
-                Guest Portal
-              </Link>
-              <form action={signOut}>
-                <button
-                  type="submit"
-                  className="rounded px-3 py-2 text-sm font-semibold uppercase tracking-wide text-wood-dark hover:text-rust"
-                >
-                  Sign Out
-                </button>
-              </form>
-            </>
+                Sign Out
+              </button>
+            </form>
           ) : (
             <>
               <Link
@@ -97,7 +89,7 @@ export default function SiteHeader({ profile }: { profile: Profile | null }) {
                 href="/sign-in"
                 className="ml-2 rounded-full bg-wood-dark px-4 py-2 text-sm font-semibold text-cream transition-colors hover:bg-rust"
               >
-                Guest Portal
+                Sign In
               </Link>
             </>
           )}
@@ -142,23 +134,14 @@ export default function SiteHeader({ profile }: { profile: Profile | null }) {
             </Link>
           )}
           {profile ? (
-            <>
-              <Link
-                href="/portal"
-                onClick={() => setOpen(false)}
-                className="mt-2 rounded-full bg-wood-dark px-4 py-2 text-center text-sm font-semibold text-cream"
+            <form action={signOut}>
+              <button
+                type="submit"
+                className="mt-2 w-full rounded-full border-2 border-wood-dark px-4 py-2 text-center text-sm font-semibold text-wood-dark"
               >
-                Guest Portal
-              </Link>
-              <form action={signOut}>
-                <button
-                  type="submit"
-                  className="w-full rounded px-2 py-2 text-left text-sm font-semibold uppercase tracking-wide text-wood-dark"
-                >
-                  Sign Out
-                </button>
-              </form>
-            </>
+                Sign Out
+              </button>
+            </form>
           ) : (
             <>
               <Link
@@ -173,7 +156,7 @@ export default function SiteHeader({ profile }: { profile: Profile | null }) {
                 onClick={() => setOpen(false)}
                 className="mt-2 rounded-full bg-wood-dark px-4 py-2 text-center text-sm font-semibold text-cream"
               >
-                Guest Portal
+                Sign In
               </Link>
             </>
           )}
